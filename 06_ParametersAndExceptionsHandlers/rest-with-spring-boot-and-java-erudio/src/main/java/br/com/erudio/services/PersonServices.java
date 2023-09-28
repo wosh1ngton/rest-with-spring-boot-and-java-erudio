@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.erudio.dto.v1.PersonDTO;
+import br.com.erudio.dto.v2.PersonDTOV2;
 import br.com.erudio.exceptions.ResourceNotFoundException;
 import br.com.erudio.mapper.DozerMapper;
+import br.com.erudio.mapper.custom.PersonMapper;
 import br.com.erudio.model.Person;
 import br.com.erudio.repositories.PersonRepository;
 
@@ -20,6 +22,9 @@ public class PersonServices {
 	
 	@Autowired
 	PersonRepository repository;
+	
+	@Autowired
+	PersonMapper _mapper;
 	
 	public PersonDTO findById(Long id) {
 		
@@ -42,6 +47,13 @@ public class PersonServices {
 		logger.info("Creating one person");	
 		var entity = DozerMapper.parseObject(person, Person.class);		
 		return DozerMapper.parseObject(repository.save(entity), PersonDTO.class);
+	}
+	
+	public PersonDTOV2 createV2(PersonDTOV2 person) {
+		
+		logger.info("Creating one person v2");	
+		var entity = _mapper.convertDTOToEntity(person);		
+		return _mapper.convertEntityToDTO(repository.save(entity));
 	}
 	
 	public PersonDTO update(PersonDTO person) {
