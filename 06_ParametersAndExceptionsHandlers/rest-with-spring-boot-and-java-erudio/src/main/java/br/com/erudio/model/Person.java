@@ -30,15 +30,7 @@ public class Person implements Serializable {
 	
 	@Column(name = "SG_GENDER")
 	private String gender;
-	
-	
-	public Person(String firstName, String lastName, String address, String gender) {
-	
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.gender = gender;
-	}
+
 	
 	public Person() {}
 	

@@ -21,7 +21,7 @@ public class CutomizedResponseEntityExceptionHandler extends ResponseEntityExcep
 		
 		ExceptionResponse exceptionResponse = new ExceptionResponse(
 				new Date(), 
-				ex.getMessage(), 
+				ex.getMessage(),				
 				request.getDescription(false));
 		
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);

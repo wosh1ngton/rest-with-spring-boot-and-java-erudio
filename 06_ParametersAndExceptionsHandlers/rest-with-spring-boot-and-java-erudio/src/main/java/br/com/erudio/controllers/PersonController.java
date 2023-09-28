@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.erudio.dto.v1.PersonDTO;
 import br.com.erudio.model.Person;
 import br.com.erudio.services.PersonServices;
 
@@ -25,25 +26,25 @@ public class PersonController {
 	private PersonServices service;
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person findById(@PathVariable(value = "id") Long id) throws Exception
+	public PersonDTO findById(@PathVariable(value = "id") Long id) throws Exception
 	{	
 		return service.findById(id);
 	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Person> findAll() 
+	public List<PersonDTO> findAll() 
 	{	
 		return service.findAll();
 	}
 	
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Person create(@RequestBody Person person) throws Exception
+	public PersonDTO create(@RequestBody PersonDTO person) throws Exception
 	{	
 		return service.create(person);
 	}
 	
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Person update(@RequestBody Person person) throws Exception
+	public PersonDTO update(@RequestBody PersonDTO person) throws Exception
 	{	
 		return service.update(person);
 	}
