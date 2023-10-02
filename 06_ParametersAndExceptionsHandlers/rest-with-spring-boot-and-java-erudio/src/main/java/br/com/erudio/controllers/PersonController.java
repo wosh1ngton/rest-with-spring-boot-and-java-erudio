@@ -40,7 +40,7 @@ public class PersonController {
 			MediaType.APPLICATION_XML,
 			MediaType.APPLICATION_YML,
 			})
-	public List<PersonDTO> findAll() 
+	public List<PersonDTO> findAll() throws Exception 
 	{	
 		return service.findAll();
 	}

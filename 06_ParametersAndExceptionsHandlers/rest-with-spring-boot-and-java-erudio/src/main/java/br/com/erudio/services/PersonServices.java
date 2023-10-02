@@ -4,8 +4,11 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Service;
 
+import br.com.erudio.controllers.PersonController;
 import br.com.erudio.dto.v1.PersonDTO;
 import br.com.erudio.dto.v2.PersonDTOV2;
 import br.com.erudio.exceptions.ResourceNotFoundException;
@@ -26,27 +29,42 @@ public class PersonServices {
 	@Autowired
 	PersonMapper _mapper;
 	
-	public PersonDTO findById(Long id) {
+	public PersonDTO findById(Long id) throws Exception {
 		
 		logger.info("Finding one person");		
-		Person person = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Não foram encontrados registros para este id"));
+		Person person = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Não foram encontrados registros para este id"));
 		var dto = DozerMapper.parseObject(person, PersonDTO.class);
+		dto.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
 		return dto;
 	}
 	
-	public List<PersonDTO> findAll() {
+	public List<PersonDTO> findAll() throws Exception {
 		
 		logger.info("Finding all people");
 		var persons = repository.findAll();
 		var dto = DozerMapper.parseListObjects(persons, PersonDTO.class);
+		
+		dto.stream()
+			.forEach(p -> {
+				try {
+					p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});			
+			
 		return dto;
 	}
 	
-	public PersonDTO create(PersonDTO person) {
+	public PersonDTO create(PersonDTO person) throws Exception {
 		
 		logger.info("Creating one person");	
 		var entity = DozerMapper.parseObject(person, Person.class);		
-		return DozerMapper.parseObject(repository.save(entity), PersonDTO.class);
+		var dto = DozerMapper.parseObject(repository.save(entity), PersonDTO.class);
+		dto.add(linkTo(methodOn(PersonController.class).findById(dto.getKey())).withSelfRel());
+		return dto;
 	}
 	
 	public PersonDTOV2 createV2(PersonDTOV2 person) {
@@ -56,10 +74,10 @@ public class PersonServices {
 		return _mapper.convertEntityToDTO(repository.save(entity));
 	}
 	
-	public PersonDTO update(PersonDTO person) {
+	public PersonDTO update(PersonDTO person) throws Exception {
 		
 		logger.info("Updating one person");	
-		Person entity = repository.findById(person.getId())
+		Person entity = repository.findById(person.getKey())
 				.orElseThrow(() -> new ResourceNotFoundException("Não foram encontrados registros para este id"));	
 		
 		entity.setFirstName(person.getFirstName());
@@ -69,6 +87,7 @@ public class PersonServices {
 		
 		var entitySave = repository.save(entity);		
 		var dto = DozerMapper.parseObject(entitySave, PersonDTO.class);
+		dto.add(linkTo(methodOn(PersonController.class).findById(dto.getKey())).withSelfRel());
 		return dto;
 	}
 	
