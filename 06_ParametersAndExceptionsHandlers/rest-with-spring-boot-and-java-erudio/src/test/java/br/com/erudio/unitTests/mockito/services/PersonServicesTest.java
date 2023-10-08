@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import br.com.erudio.dto.v1.PersonDTO;
 import br.com.erudio.exceptions.RequiredObjectIsNullException;
-import br.com.erudio.exceptions.ResourceNotFoundException;
 import br.com.erudio.model.Person;
 import br.com.erudio.repositories.PersonRepository;
 import br.com.erudio.services.PersonServices;
