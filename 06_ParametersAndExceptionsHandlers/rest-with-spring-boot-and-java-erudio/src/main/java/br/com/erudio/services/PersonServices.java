@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.com.erudio.controllers.PersonController;
 import br.com.erudio.dto.v1.PersonDTO;
 import br.com.erudio.dto.v2.PersonDTOV2;
+import br.com.erudio.exceptions.RequiredObjectIsNullException;
 import br.com.erudio.exceptions.ResourceNotFoundException;
 import br.com.erudio.mapper.DozerMapper;
 import br.com.erudio.mapper.custom.PersonMapper;
@@ -60,6 +61,7 @@ public class PersonServices {
 	
 	public PersonDTO create(PersonDTO person) throws Exception {
 		
+		if(person == null) throw new RequiredObjectIsNullException();
 		logger.info("Creating one person");	
 		var entity = DozerMapper.parseObject(person, Person.class);		
 		var dto = DozerMapper.parseObject(repository.save(entity), PersonDTO.class);
@@ -76,6 +78,7 @@ public class PersonServices {
 	
 	public PersonDTO update(PersonDTO person) throws Exception {
 		
+		if(person == null) throw new RequiredObjectIsNullException();
 		logger.info("Updating one person");	
 		Person entity = repository.findById(person.getKey())
 				.orElseThrow(() -> new ResourceNotFoundException("Não foram encontrados registros para este id"));	
