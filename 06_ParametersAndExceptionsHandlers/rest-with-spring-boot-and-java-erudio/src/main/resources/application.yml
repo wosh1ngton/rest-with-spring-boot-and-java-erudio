@@ -1,10 +1,11 @@
 cors:
   originPatterns: http://localhost:3000,http://localhost:8080,https://erosao.com.br
-security:
-  jwt:
+security:  
+  jwt:    
     token:
-      secret-key: 53cr37
+      secret-key: ======================Woshington=Spring===========================
       expire-length: 3600000
+      cookieName: cookie
 spring:
   datasource:    
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -25,6 +26,5 @@ springdoc:
   swagger-ui:
     use-root-path: true
 logging.level.org.springframework.web: DEBUG
-
 
         
