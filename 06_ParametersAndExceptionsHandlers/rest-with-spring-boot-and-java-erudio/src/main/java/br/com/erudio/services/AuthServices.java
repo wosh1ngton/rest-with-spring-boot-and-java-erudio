@@ -26,20 +26,22 @@ public class AuthServices {
 	
 	@SuppressWarnings("rawtypes")
 	public ResponseEntity signin(AccountCredentialsVO data) {
-		try {
-			var userName = data.getUsername();
-			var password = data.getPassword();
+		try {			
+			
+			//Tenta autenticar o usuário, se falhar a exceção BadCredentials é exibida			
 			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(userName,  password));
+					new UsernamePasswordAuthenticationToken(data.getUsername(),  data.getPassword()));
 			
-			var user = repository.findByUsername(userName);
-			
+			//Passando pela autenticação recupera os dados do usuário
+			var user = repository.findByUsername(data.getUsername());
+
 			var tokenResponse = new TokenVO();
 			
 			if (user != null) {
-				tokenResponse = tokenProvider.createAccessToken(userName, user.getRoles());
+				//Armazena o token
+				tokenResponse = tokenProvider.createAccessToken(data.getUsername(), user.getRoles());
 			}else {
-				throw new UsernameNotFoundException("Username " + userName + " não encontrado!");
+				throw new UsernameNotFoundException("Username " + data.getUsername() + " não encontrado!");
 			}
 			
 			return ResponseEntity.ok(tokenResponse);

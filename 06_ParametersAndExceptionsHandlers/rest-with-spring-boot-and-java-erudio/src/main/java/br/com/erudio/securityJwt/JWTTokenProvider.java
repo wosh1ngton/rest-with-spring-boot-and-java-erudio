@@ -36,12 +36,12 @@ public class JWTTokenProvider {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-	Algorithm algorithm = null;
+	private Algorithm algorithm = null;
 
 	@PostConstruct
 	protected void init() {
 		secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
-		algorithm.HMAC256(secretKey.getBytes());
+		algorithm = Algorithm.HMAC256(secretKey.getBytes());
 	}
 
 	public TokenVO createAccessToken(String username, List<String> roles) {
@@ -54,8 +54,8 @@ public class JWTTokenProvider {
 	}
 
 	public TokenVO refreshToken(String refreshToken) {
-		if (refreshToken.contains("Bearer ")) refreshToken =
-				refreshToken.substring("Bearer ".length());
+		if (refreshToken.contains("Bearer ")) 
+			refreshToken = refreshToken.substring("Bearer ".length());
 		
 		JWTVerifier verifier = JWT.require(algorithm).build();
 		DecodedJWT decodedJWT = verifier.verify(refreshToken);

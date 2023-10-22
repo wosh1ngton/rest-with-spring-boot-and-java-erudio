@@ -3,7 +3,7 @@ cors:
 security:
   jwt:
     token:
-      secret-key: 53cr37
+      secret-key: =========================wos-spring-boot====================================
       expire-length: 3600000
 spring:
   datasource:    
