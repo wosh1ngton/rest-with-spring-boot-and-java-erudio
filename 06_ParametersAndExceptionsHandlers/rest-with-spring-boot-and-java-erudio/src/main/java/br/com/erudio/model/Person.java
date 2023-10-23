@@ -31,6 +31,8 @@ public class Person implements Serializable {
 	@Column(name = "SG_GENDER")
 	private String gender;
 
+	@Column(nullable = false)
+	private Boolean	enabled;
 	
 	public Person() {}
 	
@@ -65,6 +67,15 @@ public class Person implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}	
+	
 
 }

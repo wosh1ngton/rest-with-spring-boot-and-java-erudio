@@ -1,9 +1,11 @@
 package br.com.erudio.unitTests.mockito.services;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -119,12 +121,9 @@ class PersonServicesTest {
 		assertEquals("Addres Test1",result.getAddress());
 		assertEquals("First Name Test1",result.getFirstName());
 		assertEquals("Last Name Test1",result.getLastName());
-		assertEquals("Female",result.getGender());
-		
+		assertEquals("Female",result.getGender());	
 			
-	}
-	
-	
+	}	
 	
 	@Test
 	void testUpdate() throws Exception {

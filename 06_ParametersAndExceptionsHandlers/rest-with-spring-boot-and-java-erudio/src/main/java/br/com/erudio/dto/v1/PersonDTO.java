@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
 
+import jakarta.persistence.Column;
+
 @JsonPropertyOrder({"id","address","first_name","last_name","gender"})
 public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
@@ -27,8 +29,18 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
 	@JsonIgnore
 	private String address;
 	
-	private String gender;
+	private String gender;	
 	
+	private Boolean	enabled;
+	
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public PersonDTO() {}
 
 	public Long getKey() {

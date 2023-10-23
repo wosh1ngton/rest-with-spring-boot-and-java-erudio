@@ -1,13 +1,11 @@
 package br.com.erudio.services;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Logger;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import br.com.erudio.controllers.PersonController;
 import br.com.erudio.dto.v1.PersonDTO;
 import br.com.erudio.dto.v2.PersonDTOV2;
@@ -17,11 +15,11 @@ import br.com.erudio.mapper.DozerMapper;
 import br.com.erudio.mapper.custom.PersonMapper;
 import br.com.erudio.model.Person;
 import br.com.erudio.repositories.PersonRepository;
+import jakarta.transaction.Transactional;
 
 @Service
-public class PersonServices {
+public class PersonServices {	
 	
-	private final AtomicLong counter = new AtomicLong();
 	private Logger logger = Logger.getLogger(PersonServices.class.getName());
 	
 	@Autowired
@@ -33,6 +31,19 @@ public class PersonServices {
 	public PersonDTO findById(Long id) throws Exception {
 		
 		logger.info("Finding one person");		
+		Person person = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Não foram encontrados registros para este id"));
+		var dto = DozerMapper.parseObject(person, PersonDTO.class);
+		dto.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+		return dto;
+	}
+	
+	@Transactional
+	public PersonDTO disablePerson(Long id) throws Exception {		
+		
+		logger.info("Desabilitando one person");		
+		repository.disablePerson(id);
+		
 		Person person = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Não foram encontrados registros para este id"));
 		var dto = DozerMapper.parseObject(person, PersonDTO.class);
