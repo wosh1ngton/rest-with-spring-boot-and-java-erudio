@@ -5,6 +5,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import br.com.erudio.controllers.PersonController;
 import br.com.erudio.dto.v1.PersonDTO;
@@ -51,23 +53,26 @@ public class PersonServices {
 		return dto;
 	}
 	
-	public List<PersonDTO> findAll() throws Exception {
+	public Page<PersonDTO> findAll(Pageable pageable) throws Exception {
 		
 		logger.info("Finding all people");
-		var persons = repository.findAll();
-		var dto = DozerMapper.parseListObjects(persons, PersonDTO.class);
+		var personsPage = repository.findAll(pageable);
 		
-		dto.stream()
-			.forEach(p -> {
-				try {
-					p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});			
+		var personsDTOpage = personsPage.map(p -> DozerMapper.parseObject(p, PersonDTO.class));
+		personsDTOpage.map(
+				p -> {
+					try {
+						return p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return p;
+				});
+		
 			
-		return dto;
+			
+		return personsDTOpage;
 	}
 	
 	public PersonDTO create(PersonDTO person) throws Exception {

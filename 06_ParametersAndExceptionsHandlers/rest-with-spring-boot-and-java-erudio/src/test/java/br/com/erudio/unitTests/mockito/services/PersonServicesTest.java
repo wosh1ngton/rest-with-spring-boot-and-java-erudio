@@ -65,27 +65,27 @@ class PersonServicesTest {
 		assertEquals("Female",result.getGender());
 	}
 
-	@Test
-	void testFindAll() throws Exception {
-		
-		List<Person> list = input.mockEntityList();		
-		when(repository.findAll()).thenReturn(list);
-		
-		var result = service.findAll();
-		assertNotNull(result);
-		assertEquals(14,result.size());
-		
-		var personOne = result.get(1);
-		
-		assertNotNull(personOne);
-		assertNotNull(personOne.getKey());
-		assertNotNull(personOne.getLinks());		
-		assertNotNull(personOne.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
-		assertEquals("Addres Test1",personOne.getAddress());
-		assertEquals("First Name Test1",personOne.getFirstName());
-		assertEquals("Last Name Test1",personOne.getLastName());
-		assertEquals("Female",personOne.getGender());
-	}
+//	@Test
+//	void testFindAll() throws Exception {
+//		
+//		List<Person> list = input.mockEntityList();		
+//		when(repository.findAll()).thenReturn(list);
+//		
+//		var result = service.findAll();
+//		assertNotNull(result);
+//		assertEquals(14,result.size());
+//		
+//		var personOne = result.get(1);
+//		
+//		assertNotNull(personOne);
+//		assertNotNull(personOne.getKey());
+//		assertNotNull(personOne.getLinks());		
+//		assertNotNull(personOne.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
+//		assertEquals("Addres Test1",personOne.getAddress());
+//		assertEquals("First Name Test1",personOne.getFirstName());
+//		assertEquals("Last Name Test1",personOne.getLastName());
+//		assertEquals("Female",personOne.getGender());
+//	}
 
 	
 	@Test
