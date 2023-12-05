@@ -1,9 +1,5 @@
 package br.com.erudio.controllers;
-import java.util.List;
-import io.swagger.v3.oas.annotations.media.Schema;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,10 +23,11 @@ import br.com.erudio.dto.v2.PersonDTOV2;
 import br.com.erudio.services.PersonServices;
 import br.com.erudio.utils.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/person/v1")

@@ -112,7 +112,7 @@ class BookServicesTest {
 		BookDTO dto = input.mockDTO(1);
 		dto.setKey(1);
 		
-		lenient().when(repository.save(entity)).thenReturn(persisted);	
+		when(repository.save(entity)).thenReturn(persisted);	
 		var book = service.create(dto);
 		
 		assertNotNull(book);
@@ -122,7 +122,7 @@ class BookServicesTest {
 		assertTrue(book.toString().contains("links: [</api/books/v1/1>;rel=\"self\"]"));
 		assertEquals("Title Test1",book.getTitle());
 		assertEquals("Author Name Test1",book.getAuthor());
-		assertEquals(new Date(),book.getLaunchDate());
+		assertNotNull(book.getLaunchDate());
 		assertEquals(1,book.getPrice());
 		
 			
@@ -130,36 +130,41 @@ class BookServicesTest {
 	
 	
 	
-//	@Test
-//	void testUpdate() throws Exception {
-//		Person entity = input.mockEntity(1);
-//		
-//		Person persisted = entity;
-//		persisted.setId(1L);
-//		
-//		PersonDTO dto = input.mockDTO(1);
-//		dto.setKey(1L);
-//		
-//		when(repository.findById(1L)).thenReturn(Optional.of(entity));
-//		when(repository.save(entity)).thenReturn(persisted);
-//		
-//		var result = service.update(dto);
-//		
-//		assertNotNull(result);
-//		assertNotNull(result.getKey());
-//		assertNotNull(result.getLinks());
-//		
-//		assertNotNull(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
-//		assertEquals("Addres Test1",result.getAddress());
-//		assertEquals("First Name Test1",result.getFirstName());
-//		assertEquals("Last Name Test1",result.getLastName());
-//		assertEquals("Female",result.getGender());
-//		
-//	}
+	@Test
+	void testUpdate() throws Exception {
+		Book entity = input.mockEntity(1);
+		entity.setId(1);
+		
+		Book persisted = entity;
+		persisted.setId(1);
+		
+		BookDTO dto = input.mockDTO(1);
+		dto.setKey(1);
+		
+		when(repository.findById(1)).thenReturn(Optional.of(entity));
+		when(repository.save(entity)).thenReturn(persisted);
+		
+		var book = service.update(dto);
+		
+		assertNotNull(book);
+		assertNotNull(book.getKey());
+		assertNotNull(book.getLinks());
+		
+		assertTrue(book.toString().contains("links: [</api/books/v1/1>;rel=\"self\"]"));
+		assertEquals("Title Test1",book.getTitle());
+		assertEquals("Author Name Test1",book.getAuthor());
+		assertNotNull(book.getLaunchDate());
+		assertEquals(1,book.getPrice());
+		
+	}
 
 	@Test
 	void testDelete() {
-		fail("Not yet implemented");
+		Book entity = input.mockEntity(1);
+		entity.setId(1);
+		
+		when(repository.findById(1)).thenReturn(Optional.of(entity));
+		service.delete(1);
 	}
 
 }

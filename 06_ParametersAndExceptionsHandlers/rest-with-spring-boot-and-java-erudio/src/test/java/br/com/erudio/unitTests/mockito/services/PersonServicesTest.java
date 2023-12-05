@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -28,10 +26,16 @@ import br.com.erudio.repositories.PersonRepository;
 import br.com.erudio.services.PersonServices;
 import br.com.erudio.unitTests.mapper.mocks.MockPerson;
 
+
+
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
-class PersonServicesTest {
 
+class PersonServicesTest {
+	
+	
+    
+	
 	MockPerson input;
 	
 	@InjectMocks
@@ -58,34 +62,12 @@ class PersonServicesTest {
 		assertNotNull(result);
 		assertNotNull(result.getKey());
 		assertNotNull(result.getLinks());		
-		assertNotNull(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
+		assertTrue(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
 		assertEquals("Addres Test1",result.getAddress());
 		assertEquals("First Name Test1",result.getFirstName());
 		assertEquals("Last Name Test1",result.getLastName());
 		assertEquals("Female",result.getGender());
 	}
-
-//	@Test
-//	void testFindAll() throws Exception {
-//		
-//		List<Person> list = input.mockEntityList();		
-//		when(repository.findAll()).thenReturn(list);
-//		
-//		var result = service.findAll();
-//		assertNotNull(result);
-//		assertEquals(14,result.size());
-//		
-//		var personOne = result.get(1);
-//		
-//		assertNotNull(personOne);
-//		assertNotNull(personOne.getKey());
-//		assertNotNull(personOne.getLinks());		
-//		assertNotNull(personOne.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
-//		assertEquals("Addres Test1",personOne.getAddress());
-//		assertEquals("First Name Test1",personOne.getFirstName());
-//		assertEquals("Last Name Test1",personOne.getLastName());
-//		assertEquals("Female",personOne.getGender());
-//	}
 
 	
 	@Test
@@ -97,8 +79,16 @@ class PersonServicesTest {
 		assertEquals(expectedMessage, e.getMessage());
 	} 
 	
-	
 	@Test
+	void testUpdateWithNullPerson() {
+		Exception e = assertThrows(RequiredObjectIsNullException.class, () -> {
+			service.update(null);
+		});
+		String expectedMessage = "Não é permitido salvar um registro nulo";
+		assertEquals(expectedMessage, e.getMessage());
+	} 
+	
+	@Test	
 	void testCreate() throws Exception {
 		
 		Person entity = input.mockEntity(1);
@@ -106,11 +96,11 @@ class PersonServicesTest {
 		
 		Person persisted = entity;
 		persisted.setId(1L);
-		
+//		
 		PersonDTO dto = input.mockDTO(1);
-		dto.setKey(1L);
+		dto.setKey(1L);		
 		
-		lenient().when(repository.save(entity)).thenReturn(persisted);	
+		when(repository.save(entity)).thenReturn(persisted);	
 		var result = service.create(dto);
 		
 		assertNotNull(result);
@@ -154,7 +144,11 @@ class PersonServicesTest {
 
 	@Test
 	void testDelete() {
-		fail("Not yet implemented");
+		Person entity = input.mockEntity(1);
+		entity.setId(1L);
+		
+		when(repository.findById(1L)).thenReturn(Optional.of(entity));
+		service.delete(1L);
 	}
 
 }

@@ -19,8 +19,7 @@ import br.com.erudio.exceptions.MyFileNotFoundException;
 public class FileStorageService {
 
 	private final Path fileStorageLocation;
-
-	@Autowired
+	
 	public FileStorageService(FileStorageConfig fileStorageConfig) {
 		Path path = Paths.get(fileStorageConfig.getUploadDir())
 				.toAbsolutePath().normalize();

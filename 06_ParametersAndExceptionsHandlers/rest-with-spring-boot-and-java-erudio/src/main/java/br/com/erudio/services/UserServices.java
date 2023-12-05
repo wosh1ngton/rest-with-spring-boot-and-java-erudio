@@ -13,7 +13,7 @@ public class UserServices implements UserDetailsService {
 	
 	@Autowired
 	UserRepository repository;	
-	
+	@Autowired
 	public UserServices(UserRepository repository) {		
 		this.repository = repository;
 	}	

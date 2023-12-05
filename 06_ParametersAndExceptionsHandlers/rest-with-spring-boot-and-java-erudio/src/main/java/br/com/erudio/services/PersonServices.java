@@ -41,6 +41,7 @@ public class PersonServices {
 	public PersonDTO findById(Long id) throws Exception {
 
 		logger.info("Finding one person");
+		
 		Person person = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Não foram encontrados registros para este id"));
 		var dto = DozerMapper.parseObject(person, PersonDTO.class);
