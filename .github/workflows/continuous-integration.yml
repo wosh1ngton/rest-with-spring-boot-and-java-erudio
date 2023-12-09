@@ -3,10 +3,10 @@ name: Continuous Integration with GitHub Actions
 on:
   push:
     branches:
-      - main
+      - feature/paginacao
   pull_request:
     branches: 
-      - main
+      - feature/paginacao
 
 jobs:
   build:
