@@ -1,6 +1,7 @@
 server:
   port: 8083
 cors:
+<<<<<<< HEAD
   originPatterns: http://localhost:3000,http://localhost:80,https://erosao.com.br
 file:
   upload-dir: /Downloads/UploadDir
@@ -8,7 +9,15 @@ security:
   jwt:
     token:
       secret-key: =========================wos-spring-boot====================================
+=======
+  originPatterns: http://localhost:3000,http://localhost:8080,https://erosao.com.br
+security:  
+  jwt:    
+    token:
+      secret-key: ======================Woshington=Spring===========================
+>>>>>>> 8819ad3b36b9901f1fe538e1d75aecbe46177713
       expire-length: 3600000
+      cookieName: cookie
 spring:
   datasource:    
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -35,6 +44,5 @@ springdoc:
   swagger-ui:
     use-root-path: true
 logging.level.org.springframework.web: DEBUG
-
 
         
