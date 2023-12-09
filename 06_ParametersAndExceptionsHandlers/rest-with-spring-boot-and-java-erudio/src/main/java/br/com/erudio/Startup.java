@@ -1,11 +1,10 @@
 package br.com.erudio;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-<<<<<<< HEAD
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-=======
->>>>>>> 8819ad3b36b9901f1fe538e1d75aecbe46177713
-
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class Startup extends SpringBootServletInitializer {
@@ -15,8 +14,6 @@ public class Startup extends SpringBootServletInitializer {
 		
 		 
 		SpringApplication.run(Startup.class, args);	
-
-
    
 	}
 

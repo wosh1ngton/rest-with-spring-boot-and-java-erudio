@@ -47,8 +47,6 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-<<<<<<< HEAD
-=======
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
@@ -71,8 +69,6 @@
     <version>0.11.5</version>
     <scope>runtime</scope>
 </dependency>
-
->>>>>>> 8819ad3b36b9901f1fe538e1d75aecbe46177713
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
@@ -103,7 +99,6 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
-		
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
@@ -135,15 +130,6 @@
 			<version>${testcontainers.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
-
-		
-		
-	
-		
-		
-		
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
