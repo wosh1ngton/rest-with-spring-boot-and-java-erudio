@@ -372,15 +372,15 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 						.body()
 							.asString();
 		
-		assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/person/v1/676\"}}}"));
-		assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/person/v1/496\"}}}"));
-		assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/person/v1/927\"}}}"));
+		assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8083/api/person/v1/676\"}}}"));
+		assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8083/api/person/v1/496\"}}}"));
+		assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8083/api/person/v1/927\"}}}"));
 		
-		assertTrue(content.contains("{\"first\":{\"href\":\"http://localhost:8888/api/person/v1?direction=asc&page=0&limit=10&sort=firstName,asc\"}"));
-		assertTrue(content.contains("\"prev\":{\"href\":\"http://localhost:8888/api/person/v1?direction=asc&page=2&limit=10&sort=firstName,asc\"}"));
-		assertTrue(content.contains("\"self\":{\"href\":\"http://localhost:8888/api/person/v1?page=3&limit=10&direction=asc\"}"));
-		assertTrue(content.contains("\"next\":{\"href\":\"http://localhost:8888/api/person/v1?direction=asc&page=4&limit=10&sort=firstName,asc\"}"));
-		assertTrue(content.contains("\"last\":{\"href\":\"http://localhost:8888/api/person/v1?direction=asc&page=100&limit=10&sort=firstName,asc\"}}"));
+		assertTrue(content.contains("{\"first\":{\"href\":\"http://localhost:8083/api/person/v1?direction=asc&page=0&limit=10&sort=firstName,asc\"}"));
+		assertTrue(content.contains("\"prev\":{\"href\":\"http://localhost:8083/api/person/v1?direction=asc&page=2&limit=10&sort=firstName,asc\"}"));
+		assertTrue(content.contains("\"self\":{\"href\":\"http://localhost:8083/api/person/v1?page=3&limit=10&direction=asc\"}"));
+		assertTrue(content.contains("\"next\":{\"href\":\"http://localhost:8083/api/person/v1?direction=asc&page=4&limit=10&sort=firstName,asc\"}"));
+		assertTrue(content.contains("\"last\":{\"href\":\"http://localhost:8083/api/person/v1?direction=asc&page=100&limit=10&sort=firstName,asc\"}}"));
 		
 		assertTrue(content.contains("\"page\":{\"limit\":10,\"totalElements\":1004,\"totalPages\":101,\"number\":3}}"));
 	}
