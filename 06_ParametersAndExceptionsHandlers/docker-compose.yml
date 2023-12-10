@@ -19,7 +19,7 @@ services:
     networks:
       - erosao-network
   rest:
-    image: rest-with-spring-boot
+    image: wosh1ngton/rest-with-spring-boot
     restart: always
     build: ./rest-with-spring-boot-and-java-erudio
     working_dir: /rest-with-spring-boot-and-java-erudio
