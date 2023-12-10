@@ -1,7 +1,7 @@
 server:
   port: 8888
 cors:
-  originPatterns: http://localhost:3000,http://localhost:8080,https://erosao.com.br
+  originPatterns: http://localhost:3000,http://localhost:8083,https://erosao.com.br
 file:
   upload-dir: /home/runner/work/rest-with-spring-boot-and-java-erudio/UploadDir
 security:
