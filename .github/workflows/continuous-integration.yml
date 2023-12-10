@@ -4,17 +4,13 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches: 
-      - main
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: Docker Login
       uses: docker/login-action@v3.0.0
       with:    
@@ -27,13 +23,14 @@ jobs:
         java-version: '18'
         distribution: 'adopt'
         cache: maven
+        
     - name: Build with Maven
       working-directory: ./06_ParametersAndExceptionsHandlers/rest-with-spring-boot-and-java-erudio
       run: mvn clean package
       
     - name: Docker Compose Build
       working-directory: ./06_ParametersAndExceptionsHandlers
-      run: docker-compose up -d --build
+      run: docker-compose build
     
     - name: Push to docker Hub Container Registry
       run: | 
