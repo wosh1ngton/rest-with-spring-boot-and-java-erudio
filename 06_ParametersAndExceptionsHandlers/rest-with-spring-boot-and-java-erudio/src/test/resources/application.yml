@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 8083
 cors:
   originPatterns: http://localhost:3000,http://localhost:8083,https://erosao.com.br
 file:
